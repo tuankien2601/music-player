@@ -5,8 +5,9 @@ import { GoogleLogin, GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/g
 
 
 export default function Home() {
+    const clientId = import.meta.env.VITE_CLIENT_ID
     return (
-        <GoogleOAuthProvider clientId={CLIENT_ID}>
+        <GoogleOAuthProvider clientId={clientId}>
             <div className="drawer">
                 <input id="drawer-toggle-btn" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col">
