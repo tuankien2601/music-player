@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getGoogleAccessToken, setGoogleAccessToken } from "../libs/storage"
 import { useGoogleLogin, googleLogout } from '@react-oauth/google';
 import SongList from "./SongList";
@@ -18,19 +18,21 @@ export default function CloudLibrary() {
 
     const playlist = usePlaylist()
 
-    if (token) {
-        const songs: Song[] = []
-        getAudioFilesFromDrive(token).then((files) => {
-            for (const file of files) {
-                songs.push({
-                    name: file.name,
-                    source: new DriveAudioSource(file.id)
-                })
-            }
-
-            playlist.setSongList(songs)
-        })
-    }
+    useEffect(() => {
+        if (token) {
+            getAudioFilesFromDrive(token).then((files) => {
+                const songs: Song[] = []
+                for (const file of files) {
+                    songs.push({
+                        name: file.name,
+                        source: new DriveAudioSource(file.id)
+                    })
+                }
+    
+                playlist.setSongList(songs)
+            })
+        }
+    }, [token])
 
     return (
         <div>

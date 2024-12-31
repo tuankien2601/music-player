@@ -1,6 +1,8 @@
 import LocalLibrary from './LocalLibrary'
 import { HiMenu } from "react-icons/hi";
 import CloudLibrary from './CloudLibrary';
+import { PlaylistProvider } from '../context/Playlist';
+import Player from './Player';
 
 
 export default function Home() {
@@ -13,10 +15,14 @@ export default function Home() {
                 {/* Page content here */}
                 <div className="navbar bg-base-300 w-full">
                     <label htmlFor="drawer-toggle-btn" className="btn drawer-button lg:hidden">
-                        <HiMenu/>
+                        <HiMenu />
                     </label>
                 </div>
-                <CloudLibrary/>
+                <PlaylistProvider>
+                    <CloudLibrary />
+                    <Player/>
+                </PlaylistProvider>
+
             </div>
             <div className="drawer-side">
                 <label htmlFor="drawer-toggle-btn" aria-label="close sidebar" className="drawer-overlay"></label>

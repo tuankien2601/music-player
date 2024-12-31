@@ -1,4 +1,5 @@
 import { useGAuth } from "../context/GDriveAuthContext";
+import { getGoogleAccessToken } from "./storage";
 
 export async function getAudioFilesFromDrive(accessToken: string) {
     var audioFiles = []
@@ -59,10 +60,10 @@ export class LocalAudioSource implements AudioSource {
 export class DriveAudioSource implements AudioSource {
     id = ""
     constructor(id: string) {
-
+        this.id = id
     }
     async getBlobUrl(): Promise<string> {
-        const { token } = useGAuth()
+        const token = getGoogleAccessToken()
 
         if (!token) throw new Error("Invalid token");
 

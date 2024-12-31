@@ -14,7 +14,12 @@ interface Playlist {
     setSongList: (list: Song[]) => void
 }
 
-const PlaylistContext = createContext<Playlist>({} as Playlist);
+const PlaylistContext = createContext<Playlist>({
+    currentSongIndex: 0,
+    songList: [],
+    setCurrentSong: (index: number) => {},
+    setSongList: (list: Song[]) => {}
+});
 
 export const PlaylistProvider = ({ children }: { children: ReactNode }) => {
     const [song, setSong] = useState(0);
