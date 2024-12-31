@@ -1,49 +1,31 @@
-import { useEffect } from "react";
+import LocalLibrary from './LocalLibrary'
 import { HiMenu } from "react-icons/hi";
-import { gapi } from "gapi-script";
-import { GoogleLogin, GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
+import CloudLibrary from './CloudLibrary';
 
 
 export default function Home() {
-    const clientId = import.meta.env.VITE_CLIENT_ID
+
+
     return (
-        <GoogleOAuthProvider clientId={clientId}>
-            <div className="drawer">
-                <input id="drawer-toggle-btn" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content flex flex-col">
-                    {/* Navbar */}
-                    <div className="navbar bg-base-300 w-full">
-                        <div className="flex-none lg:hidden">
-                            <label htmlFor="drawer-toggle-btn" aria-label="open sidebar" className="btn btn-square btn-ghost">
-                                <HiMenu size={"48px"} />
-                            </label>
-                        </div>
-                        <div className="mx-2 flex-1 px-2">Navbar Title</div>
-                        <div className="hidden flex-none lg:block">
-                            <ul className="menu menu-horizontal">
-                                {/* Navbar menu content here */}
-                                <li><a>Navbar Item 1</a></li>
-                                <li><a>Navbar Item 2</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    {/* Page content here */}
-                    Content
+        <div className="drawer lg:drawer-open">
+            <input id="drawer-toggle-btn" type="checkbox" className="drawer-toggle" />
+            <div className="drawer-content flex flex-col">
+                {/* Page content here */}
+                <div className="navbar bg-base-300 w-full">
+                    <label htmlFor="drawer-toggle-btn" className="btn drawer-button lg:hidden">
+                        <HiMenu/>
+                    </label>
                 </div>
-                <div className="drawer-side">
-                    <label htmlFor="drawer-toggle-btn" aria-label="close sidebar" className="drawer-overlay"></label>
-                    <div className="menu bg-base-200 min-h-full w-80 p-4">
-                        <GoogleLogin
-                            onSuccess={credentialResponse => {
-                                console.log(credentialResponse);
-                            }}
-                            onError={() => {
-                                console.log('Login Failed');
-                            }}
-                        />;
-                    </div>
-                </div>
+                <CloudLibrary/>
             </div>
-        </GoogleOAuthProvider>
+            <div className="drawer-side">
+                <label htmlFor="drawer-toggle-btn" aria-label="close sidebar" className="drawer-overlay"></label>
+                <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+                    {/* Sidebar content here */}
+                    <li><a>Songs</a></li>
+                    <li><a>Cloud</a></li>
+                </ul>
+            </div>
+        </div>
     )
 }
